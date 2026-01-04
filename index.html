@@ -3,86 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrackEnvios Ultra-Pro | Logistics Enterprise</title>
+    <title>TrackEnvios Enterprise | Multi-User</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0f172a;
-            --accent: #2563eb;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --slate: #64748b;
-            --bg: #f1f5f9;
-            --card: #ffffff;
+            --primary: #0f172a; --accent: #2563eb; --success: #10b981;
+            --danger: #ef4444; --slate: #64748b; --bg: #f1f5f9;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background: var(--bg); color: var(--primary); display: flex; height: 100vh; overflow: hidden; }
 
-        /* --- LOGIN --- */
-        #login-screen { position: fixed; inset: 0; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); display: flex; justify-content: center; align-items: center; z-index: 10000; }
-        .login-box { background: white; padding: 40px; border-radius: 24px; width: 380px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center; }
-        .login-box h1 { font-size: 28px; font-weight: 800; margin-bottom: 10px; color: var(--primary); }
-        .login-box span { color: var(--accent); }
+        /* LOGIN */
+        #login-screen { position: fixed; inset: 0; background: #0f172a; display: flex; justify-content: center; align-items: center; z-index: 10000; }
+        .login-box { background: white; padding: 40px; border-radius: 24px; width: 380px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .login-input { width: 100%; padding: 14px; margin: 10px 0; border: 1.5px solid #e2e8f0; border-radius: 12px; font-size: 16px; outline: none; }
-        .login-btn { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .login-btn { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; }
 
-        /* --- SIDEBAR --- */
+        /* SIDEBAR */
         .sidebar { width: 280px; background: var(--primary); color: white; padding: 30px 20px; display: flex; flex-direction: column; }
         .nav-link { 
             display: flex; align-items: center; padding: 14px 18px; color: #94a3b8; text-decoration: none; 
             border-radius: 12px; margin-bottom: 8px; cursor: pointer; font-weight: 500; transition: 0.3s; border: none; background: none; width: 100%; font-size: 15px;
         }
         .nav-link:hover, .nav-link.active { background: rgba(255,255,255,0.1); color: white; }
-        .nav-link.active { background: var(--accent); color: white; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); }
+        .nav-link.active { background: var(--accent); color: white; }
+        .admin-only { border-left: 3px solid var(--warning); padding-left: 10px; margin-top: 10px; display: none; } /* Oculto para operadores */
 
-        /* --- MAIN CONTENT --- */
+        /* CONTENT */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; }
-        .section { display: none; animation: fadeIn 0.4s ease; }
+        .section { display: none; animation: fadeIn 0.3s ease; }
         .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- UI COMPONENTS --- */
-        .card { background: var(--card); border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid rgba(226, 232, 240, 0.8); }
-        h2 { font-size: 24px; font-weight: 700; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 30px; }
         
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .stat-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        .stat-card small { color: var(--slate); font-weight: 600; text-transform: uppercase; font-size: 11px; }
-        .stat-card p { font-size: 28px; font-weight: 800; margin-top: 5px; }
-
-        /* --- TABLES --- */
+        /* TABLES */
         table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 15px; background: #f8fafc; color: var(--slate); font-size: 12px; font-weight: 700; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; }
-        td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 14px; color: #1e293b; }
-        
-        /* --- FORMS --- */
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--slate); }
-        input, select, textarea { 
-            width: 100%; padding: 12px 15px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 14px; 
-            transition: 0.2s; outline: none;
-        }
-        input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
-        .btn { padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.3s; border: none; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-add { background: #f1f5f9; color: var(--primary); }
-        .btn-add:hover { background: #e2e8f0; }
+        th { text-align: left; padding: 15px; background: #f8fafc; color: var(--slate); font-size: 12px; font-weight: 700; border-bottom: 2px solid #f1f5f9; }
+        td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
 
-        /* --- MULTI-SKU LIST --- */
-        .sku-tag-list { background: #f8fafc; border-radius: 12px; padding: 15px; border: 1px dashed #cbd5e1; margin-bottom: 20px; }
-        .sku-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e2e8f0; }
+        /* MODAL */
+        .modal { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8); display: none; justify-content: center; align-items: center; z-index: 5000; }
+        .modal-content { background: white; width: 90%; max-width: 800px; border-radius: 24px; padding: 40px; max-height: 90vh; overflow-y: auto; }
 
-        /* --- MODAL --- */
-        .modal { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); display: none; justify-content: center; align-items: center; z-index: 5000; backdrop-filter: blur(4px); }
-        .modal-content { background: white; width: 90%; max-width: 800px; border-radius: 24px; padding: 40px; position: relative; }
-
-        @media print {
-            .sidebar, .btn, .no-print, label, select, input { display: none !important; }
-            body { background: white; }
-            .modal { position: absolute; background: white; display: block; padding: 0; }
-            .modal-content { border: none; max-width: 100%; }
-        }
+        @media print { .sidebar, .no-print, .nav-link { display: none !important; } .modal { position: absolute; display: block; } }
     </style>
 </head>
 <body>
@@ -90,187 +53,132 @@
     <div id="login-screen">
         <div class="login-box">
             <h1>Track<span>Envios</span></h1>
-            <p style="color: var(--slate); margin-bottom: 20px;">Enterprise Logistics Solutions</p>
+            <p style="color: var(--slate); margin-bottom: 20px;">Acceso al Sistema Logístico</p>
             <input type="text" id="user" class="login-input" placeholder="Usuario">
             <input type="password" id="pass" class="login-input" placeholder="Contraseña">
-            <button class="login-btn" onclick="handleLogin()">Acceder al Portal</button>
+            <button class="login-btn" onclick="handleLogin()">Ingresar</button>
         </div>
     </div>
 
     <aside class="sidebar">
-        <div style="margin-bottom: 40px;">
-            <h1 style="font-size: 22px; font-weight: 800;">Track<span style="color:var(--accent)">Envios</span></h1>
-        </div>
-        <button class="nav-link active" onclick="nav('sec-dash', this)">📊 Dashboard</button>
-        <button class="nav-link" onclick="nav('sec-pedidos', this)">📦 Nuevo Pedido</button>
-        <button class="nav-link" onclick="nav('sec-envios', this)">🚚 Gestión de Envíos</button>
-        <button class="nav-link" onclick="nav('sec-stock', this)">🏭 Almacén</button>
-        <button class="nav-link" onclick="nav('sec-clientes', this)">👥 Clientes</button>
+        <div style="margin-bottom: 40px;"><h1 style="font-size: 22px; font-weight: 800;">Track<span style="color:var(--accent)">Envios</span></h1></div>
         
-        <button onclick="location.reload()" style="margin-top:auto; color:var(--danger)" class="nav-link">🚪 Salir del Sistema</button>
+        <button class="nav-link active" onclick="nav('sec-pedidos', this)">📦 Nuevo Pedido</button>
+        <button class="nav-link" onclick="nav('sec-envios', this)">🚚 Lista de Envíos</button>
+
+        <div id="admin-menu" class="admin-only">
+            <p style="font-size: 10px; color: var(--warning); margin-bottom: 10px; font-weight: bold;">PANEL ADMINISTRADOR</p>
+            <button class="nav-link" onclick="nav('sec-dash', this)">📊 Dashboard</button>
+            <button class="nav-link" onclick="nav('sec-stock', this)">🏭 Almacén</button>
+            <button class="nav-link" onclick="nav('sec-clientes', this)">👥 Clientes</button>
+            <button class="nav-link" onclick="nav('sec-users', this)">⚙️ Gestionar Usuarios</button>
+        </div>
+        
+        <button onclick="location.reload()" style="margin-top:auto; color:var(--danger)" class="nav-link">🚪 Salir</button>
     </aside>
 
     <main class="main-content">
-        
-        <div id="sec-dash" class="section active">
-            <h2>Panel de Control General</h2>
-            <div class="grid-4">
-                <div class="stat-card">
-                    <small>Envíos Totales</small>
-                    <p id="st-total">0</p>
-                </div>
-                <div class="stat-card" style="border-left: 4px solid var(--warning)">
-                    <small>En Proceso</small>
-                    <p id="st-pend">0</p>
-                </div>
-                <div class="stat-card" style="border-left: 4px solid var(--success)">
-                    <small>Completados</small>
-                    <p id="st-done">0</p>
-                </div>
-                <div class="stat-card" style="border-left: 4px solid var(--danger)">
-                    <small>Alertas Stock</small>
-                    <p id="st-low">0</p>
-                </div>
+        <div id="sec-users" class="section">
+            <h2>Gestión de Personal</h2>
+            <div class="card" style="max-width: 500px;">
+                <label>Nombre del Usuario</label><input type="text" id="u-name" class="login-input">
+                <label>Contraseña</label><input type="password" id="u-pass" class="login-input">
+                <label>Rango</label>
+                <select id="u-role" class="login-input">
+                    <option value="operador">Operador (Solo Pedidos y Remitos)</option>
+                    <option value="admin">Administrador (Control Total)</option>
+                </select>
+                <button class="login-btn" onclick="createUser()">Crear Nuevo Usuario</button>
             </div>
-            <br>
             <div class="card">
-                <h3>Movimientos Recientes</h3>
-                <table id="table-logs"><thead><tr><th>Fecha</th><th>Usuario</th><th>Evento</th></tr></thead><tbody></tbody></table>
+                <table><thead><tr><th>Usuario</th><th>Rango</th><th>Acción</th></tr></thead><tbody id="tbody-users"></tbody></table>
             </div>
         </div>
 
-        <div id="sec-pedidos" class="section">
-            <h2>Crear Envío Profesional</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px;">
-                <div class="card">
-                    <div class="form-group">
-                        <label>Cliente Remitente</label>
-                        <select id="p-client"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Zona de Destino</label>
-                        <input type="text" id="p-zona" placeholder="Ej: CABA - Centro">
-                    </div>
-                    <div class="form-group">
-                        <label>Dirección Exacta</label>
-                        <input type="text" id="p-dir">
-                    </div>
-                    <div class="form-group">
-                        <label>Observaciones</label>
-                        <textarea id="p-obs" rows="2"></textarea>
-                    </div>
-                    <hr style="margin: 20px 0;">
-                    <button class="btn login-btn" onclick="finalizeOrder()">🚀 FINALIZAR Y GENERAR REMITO</button>
-                </div>
+        <div id="sec-dash" class="section">
+            <h2>Dashboard Administrativo</h2>
+            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:20px">
+                <div class="card"><h3>Total Pedidos</h3><p id="st-total" style="font-size:24px; font-weight:800">0</p></div>
+                <div class="card"><h3>En Camino</h3><p id="st-pend" style="font-size:24px; font-weight:800">0</p></div>
+                <div class="card"><h3>Alertas Stock</h3><p id="st-low" style="font-size:24px; font-weight:800; color:red">0</p></div>
+            </div>
+        </div>
 
+        <div id="sec-pedidos" class="section active">
+            <h2>Generar Envío</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="card">
-                    <h3>Detalle de Carga</h3>
-                    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                        <div style="flex:2">
-                            <label>Seleccionar SKU</label>
-                            <select id="p-sku-select" onchange="updateStockPreview()"></select>
-                        </div>
-                        <div style="flex:1">
-                            <label>Cantidad</label>
-                            <input type="number" id="p-sku-qty" value="1" min="1">
-                        </div>
-                        <div style="align-self: flex-end;">
-                            <button class="btn btn-add" onclick="addSkuToTemp()">+ Añadir</button>
-                        </div>
+                    <label>Cliente</label><select id="p-client" class="login-input"></select>
+                    <label>Zona</label><input type="text" id="p-zona" class="login-input">
+                    <label>Dirección</label><input type="text" id="p-dir" class="login-input">
+                    <button class="login-btn" onclick="finalizeOrder()">Finalizar Pedido</button>
+                </div>
+                <div class="card">
+                    <label>Agregar Producto</label>
+                    <div style="display:flex; gap:10px">
+                        <select id="p-sku-select" style="flex:2" class="login-input"></select>
+                        <input type="number" id="p-sku-qty" value="1" style="flex:1" class="login-input">
                     </div>
-                    
-                    <div class="sku-tag-list" id="temp-sku-list">
-                        <p style="text-align: center; color: var(--slate); font-size: 13px;">No hay productos cargados en este pedido</p>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <div class="form-group"><label>Bultos Totales</label><input type="number" id="p-bultos" value="1"></div>
-                        <div class="form-group"><label>Peso Total (kg)</label><input type="number" id="p-peso" value="0"></div>
-                    </div>
+                    <button class="btn login-btn" style="background:#f1f5f9; color:black" onclick="addSkuToTemp()">+ Añadir a la lista</button>
+                    <div id="temp-sku-list" style="margin-top:20px; border:1px dashed #ccc; padding:10px; border-radius:10px"></div>
                 </div>
             </div>
         </div>
 
         <div id="sec-envios" class="section">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                <h2>Gestión Operativa</h2>
-                <input type="text" placeholder="🔍 Buscar pedido..." onkeyup="filterT(this.value)" style="width: 300px;">
-            </div>
+            <h2>Envíos Registrados</h2>
             <div class="card">
-                <table>
-                    <thead><tr><th>N° Tracking</th><th>Fecha</th><th>Cliente</th><th>Destino</th><th>Estado</th><th>Acción</th></tr></thead>
-                    <tbody id="tbody-orders"></tbody>
-                </table>
+                <table><thead><tr><th>ID</th><th>Cliente</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="tbody-orders"></tbody></table>
             </div>
         </div>
 
         <div id="sec-stock" class="section">
-            <h2>Control de Almacén</h2>
-            <div class="card">
-                <div class="grid-4" style="grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr;">
-                    <div class="form-group"><label>SKU</label><input type="text" id="s-sku"></div>
-                    <div class="form-group"><label>Nombre</label><input type="text" id="s-nom"></div>
-                    <div class="form-group"><label>Peso U.</label><input type="number" id="s-peso"></div>
-                    <div class="form-group"><label>Cantidad</label><input type="number" id="s-cant"></div>
-                    <div class="form-group"><label>&nbsp;</label><button class="btn btn-primary login-btn" style="margin:0" onclick="saveStock()">Cargar</button></div>
-                </div>
-            </div>
-            <div class="card">
-                <table id="table-stock"><thead><tr><th>SKU</th><th>Producto</th><th>Peso Unit.</th><th>Disponible</th></tr></thead><tbody></tbody></table>
-            </div>
+            <h2>Inventario</h2>
+            <div class="card"><div style="display:flex; gap:10px"><input type="text" id="s-sku" placeholder="SKU"><input type="text" id="s-nom" placeholder="Nombre"><input type="number" id="s-cant" placeholder="Cantidad"><button class="login-btn" onclick="saveStock()">Cargar</button></div></div>
+            <div class="card"><table><thead><tr><th>SKU</th><th>Producto</th><th>Stock</th></tr></thead><tbody id="tbody-stock"></tbody></table></div>
         </div>
 
         <div id="sec-clientes" class="section">
-            <h2>Registro de Clientes</h2>
-            <div class="card" style="max-width: 500px;">
-                <div class="form-group"><label>Razón Social / Nombre</label><input type="text" id="c-name"></div>
-                <div class="form-group"><label>Email Corporativo</label><input type="email" id="c-mail"></div>
-                <button class="btn login-btn" onclick="saveClient()">Guardar Cliente</button>
-            </div>
-            <div class="card">
-                <table><thead><tr><th>Cliente</th><th>Email</th></tr></thead><tbody id="tbody-clients"></tbody></table>
-            </div>
+            <h2>Directorio Clientes</h2>
+            <div class="card"><input type="text" id="c-name" placeholder="Nombre"><button class="login-btn" onclick="saveClient()">Guardar</button></div>
+            <div class="card"><table><thead><tr><th>Nombre</th></tr></thead><tbody id="tbody-clients"></tbody></table></div>
         </div>
-
     </main>
 
     <div id="modal-remito" class="modal">
         <div class="modal-content">
-            <div id="remito-body">
-                </div>
-            <div class="no-print" style="margin-top: 30px; display: flex; justify-content: flex-end; gap: 15px;">
-                <select id="upd-status" style="width: 180px; margin:0">
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="Despachado">Despachado</option>
-                    <option value="Entregado">Entregado</option>
-                </select>
-                <button class="btn login-btn" onclick="updateOrderStatus()">Actualizar</button>
-                <button class="btn btn-primary" style="background:#000; color:#fff" onclick="window.print()">🖨️ IMPRIMIR REMITO</button>
-                <button class="btn btn-add" onclick="closeModal()">Cerrar</button>
+            <div id="remito-body"></div>
+            <div class="no-print" style="margin-top:20px; text-align:right">
+                <button class="login-btn" style="width:auto; background:green" onclick="window.print()">IMPRIMIR REMITO</button>
+                <button class="login-btn" style="width:auto; background:gray" onclick="closeModal()">Cerrar</button>
             </div>
         </div>
     </div>
 
     <script>
-        // DATA CORE
+        // BASE DE DATOS LOCAL
         let db = {
-            stock: JSON.parse(localStorage.getItem('tr_stock')) || [],
-            clients: JSON.parse(localStorage.getItem('tr_clients')) || [],
-            orders: JSON.parse(localStorage.getItem('tr_orders')) || [],
-            logs: JSON.parse(localStorage.getItem('tr_logs')) || []
+            users: JSON.parse(localStorage.getItem('sys_users')) || [{name: "BABY", pass: "06042006", role: "admin"}],
+            stock: JSON.parse(localStorage.getItem('sys_stock')) || [],
+            clients: JSON.parse(localStorage.getItem('sys_clients')) || [],
+            orders: JSON.parse(localStorage.getItem('sys_orders')) || []
         };
-
+        let currentUser = null;
         let tempOrderSkus = [];
-        let activeIdx = null;
 
         function handleLogin() {
             const u = document.getElementById('user').value;
             const p = document.getElementById('pass').value;
-            if(u === "BABY" && p === "06042006") {
+            const found = db.users.find(x => x.name === u && x.pass === p);
+            
+            if(found) {
+                currentUser = found;
                 document.getElementById('login-screen').style.display = 'none';
-                logEv("Inicio de sesión");
+                if(found.role === "admin") {
+                    document.getElementById('admin-menu').style.display = 'block';
+                }
                 sync();
-            } else { alert("Error de acceso"); }
+            } else { alert("Usuario o clave incorrecta"); }
         }
 
         function nav(id, btn) {
@@ -278,192 +186,105 @@
             document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             btn.classList.add('active');
-            sync();
         }
 
         function sync() {
-            localStorage.setItem('tr_stock', JSON.stringify(db.stock));
-            localStorage.setItem('tr_clients', JSON.stringify(db.clients));
-            localStorage.setItem('tr_orders', JSON.stringify(db.orders));
-            localStorage.setItem('tr_logs', JSON.stringify(db.logs));
+            localStorage.setItem('sys_users', JSON.stringify(db.users));
+            localStorage.setItem('sys_stock', JSON.stringify(db.stock));
+            localStorage.setItem('sys_clients', JSON.stringify(db.clients));
+            localStorage.setItem('sys_orders', JSON.stringify(db.orders));
             render();
         }
 
-        function logEv(msg) {
-            db.logs.unshift({fecha: new Date().toLocaleString(), user: "BABY", msg});
-            if(db.logs.length > 30) db.logs.pop();
-        }
-
-        // STOCK
-        function saveStock() {
-            const sku = document.getElementById('s-sku').value.toUpperCase();
-            const cant = parseInt(document.getElementById('s-cant').value);
-            if(!sku || isNaN(cant)) return;
-
-            let item = db.stock.find(x => x.sku === sku);
-            if(item) item.cant += cant;
-            else db.stock.push({sku, nom: document.getElementById('s-nom').value, peso: document.getElementById('s-peso').value, cant});
-            
-            logEv(`Stock actualizado: ${sku}`);
+        // GESTION USUARIOS
+        function createUser() {
+            db.users.push({
+                name: document.getElementById('u-name').value,
+                pass: document.getElementById('u-pass').value,
+                role: document.getElementById('u-role').value
+            });
             sync();
         }
 
-        // CLIENTES
-        function saveClient() {
-            const name = document.getElementById('c-name').value;
-            if(!name) return;
-            db.clients.push({name, mail: document.getElementById('c-mail').value});
+        function deleteUser(i) {
+            if(db.users[i].name === "BABY") return;
+            db.users.splice(i, 1);
             sync();
-            document.getElementById('c-name').value = "";
         }
 
-        // PEDIDOS MULTI-SKU
+        // LOGICA DE PEDIDOS
         function addSkuToTemp() {
             const sku = document.getElementById('p-sku-select').value;
             const qty = parseInt(document.getElementById('p-sku-qty').value);
             const item = db.stock.find(x => x.sku === sku);
-
-            if(!item || item.cant < qty) return alert("No hay suficiente stock");
-
+            if(!item || item.cant < qty) return alert("Sin stock");
             tempOrderSkus.push({sku, nom: item.nom, qty});
-            renderTempList();
+            renderTemp();
         }
 
-        function renderTempList() {
-            const list = document.getElementById('temp-sku-list');
-            if(tempOrderSkus.length === 0) {
-                list.innerHTML = `<p style="text-align: center; color: var(--slate); font-size: 13px;">No hay productos cargados</p>`;
-                return;
-            }
-            list.innerHTML = tempOrderSkus.map((x, i) => `
-                <div class="sku-row">
-                    <span><strong>${x.sku}</strong> - ${x.nom}</span>
-                    <span>Cant: ${x.qty} <button onclick="removeTemp(${i})" style="color:red; border:none; background:none; cursor:pointer; margin-left:10px">✕</button></span>
-                </div>
-            `).join('');
-        }
-
-        function removeTemp(i) {
-            tempOrderSkus.splice(i, 1);
-            renderTempList();
+        function renderTemp() {
+            document.getElementById('temp-sku-list').innerHTML = tempOrderSkus.map(x => `<div>${x.sku} - ${x.qty} unidades</div>`).join('');
         }
 
         function finalizeOrder() {
-            if(tempOrderSkus.length === 0) return alert("Cargue al menos un producto");
-            const client = document.getElementById('p-client').value;
-            
+            if(tempOrderSkus.length === 0) return;
             const order = {
-                id: "TK-" + Date.now().toString().slice(-6),
-                client,
+                id: "TK-"+Math.floor(Math.random()*99999),
+                client: document.getElementById('p-client').value,
                 items: [...tempOrderSkus],
                 zona: document.getElementById('p-zona').value,
                 dir: document.getElementById('p-dir').value,
-                peso: document.getElementById('p-peso').value,
-                bultos: document.getElementById('p-bultos').value,
-                obs: document.getElementById('p-obs').value,
                 status: "Pendiente",
                 fecha: new Date().toLocaleString()
             };
-
-            // Descontar Stock Real
-            tempOrderSkus.forEach(temp => {
-                let realItem = db.stock.find(s => s.sku === temp.sku);
-                realItem.cant -= temp.qty;
-            });
-
+            tempOrderSkus.forEach(t => { db.stock.find(s => s.sku === t.sku).cant -= t.qty; });
             db.orders.unshift(order);
             tempOrderSkus = [];
-            logEv(`Nuevo Pedido: ${order.id}`);
             sync();
-            alert("Pedido Generado Exitosamente");
-            nav('sec-envios', document.querySelectorAll('.nav-link')[2]);
+            alert("Pedido Creado");
         }
 
-        // GESTION ENVIOS
+        // REMITOS
         function openRemito(i) {
-            activeIdx = i;
             const o = db.orders[i];
-            const htmlItems = o.items.map(x => `
-                <tr>
-                    <td>${x.sku}</td>
-                    <td>${x.nom}</td>
-                    <td>${x.qty}</td>
-                </tr>`).join('');
-
             document.getElementById('remito-body').innerHTML = `
-                <div style="padding: 20px; border: 2px solid #000;">
-                    <div style="display:flex; justify-content:space-between; align-items:center">
-                        <h1 style="font-size:32px">REMITO DE CARGA</h1>
-                        <div style="text-align:right">
-                            <p><strong>Nro Tracking:</strong> ${o.id}</p>
-                            <p><strong>Fecha:</strong> ${o.fecha}</p>
-                        </div>
-                    </div>
-                    <hr style="margin:20px 0">
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:40px">
-                        <div>
-                            <p><strong>REMITENTE:</strong></p>
-                            <p style="font-size:18px">${o.client}</p>
-                        </div>
-                        <div>
-                            <p><strong>DESTINATARIO / ENTREGA:</strong></p>
-                            <p>${o.dir}</p>
-                            <p><strong>ZONA:</strong> ${o.zona}</p>
-                        </div>
-                    </div>
-                    <br>
-                    <table style="width:100%; border:1px solid #000">
-                        <thead style="background:#eee"><tr><th>SKU</th><th>DESCRIPCIÓN</th><th>CANT</th></tr></thead>
-                        <tbody>${htmlItems}</tbody>
-                    </table>
-                    <br>
-                    <p><strong>BULTOS:</strong> ${o.bultos} | <strong>PESO TOTAL:</strong> ${o.peso} kg</p>
-                    <p><strong>NOTAS:</strong> ${o.obs}</p>
+                <div style="border:2px solid black; padding:20px; font-family: sans-serif;">
+                    <h1>REMITO OFICIAL - TrackEnvios</h1>
+                    <p><strong>Tracking:</strong> ${o.id}</p>
+                    <p><strong>Cliente:</strong> ${o.client}</p>
+                    <p><strong>Dirección:</strong> ${o.dir} (${o.zona})</p><hr>
+                    <h3>PRODUCTOS:</h3>
+                    ${o.items.map(x => `<p>${x.sku} - ${x.nom} (Cant: ${x.qty})</p>`).join('')}
                     <br><br><br>
-                    <div style="display:flex; justify-content:space-between">
-                        <div style="border-top:1px solid #000; width:200px; text-align:center; padding-top:10px">Firma Chofer</div>
-                        <div style="border-top:1px solid #000; width:200px; text-align:center; padding-top:10px">Recibió Conforme</div>
-                    </div>
+                    <p>Firma Receptor: ________________________</p>
                 </div>`;
-            document.getElementById('upd-status').value = o.status;
             document.getElementById('modal-remito').style.display = 'flex';
-        }
-
-        function updateOrderStatus() {
-            db.orders[activeIdx].status = document.getElementById('upd-status').value;
-            sync();
-            closeModal();
         }
 
         function closeModal() { document.getElementById('modal-remito').style.display = 'none'; }
 
-        // RENDERS
-        function render() {
-            document.getElementById('tbody-stock').innerHTML = db.stock.map(s => `<tr><td><b>${s.sku}</b></td><td>${s.nom}</td><td>${s.peso}kg</td><td><span style="color:${s.cant<5?'red':''}">${s.cant}</span></td></tr>`).join('');
-            document.getElementById('tbody-clients').innerHTML = db.clients.map(c => `<tr><td><b>${c.name}</b></td><td>${c.mail}</td></tr>`).join('');
-            document.getElementById('p-client').innerHTML = db.clients.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
-            document.getElementById('p-sku-select').innerHTML = db.stock.map(s => `<option value="${s.sku}">${s.sku} - ${s.nom}</option>`).join('');
-            document.getElementById('tbody-orders').innerHTML = db.orders.map((o, i) => `
-                <tr onclick="openRemito(${i})" style="cursor:pointer">
-                    <td><b>${o.id}</b></td>
-                    <td>${o.fecha.split(',')[0]}</td>
-                    <td>${o.client}</td>
-                    <td>${o.zona}</td>
-                    <td><span style="font-weight:700; color: ${o.status==='Entregado'?'green':'orange'}">${o.status}</span></td>
-                    <td><button class="btn btn-add">Ver Remito</button></td>
-                </tr>`).join('');
-            document.getElementById('table-logs').querySelector('tbody').innerHTML = db.logs.map(l => `<tr><td>${l.fecha}</td><td>${l.user}</td><td>${l.msg}</td></tr>`).join('');
-            
-            document.getElementById('st-total').innerText = db.orders.length;
-            document.getElementById('st-pend').innerText = db.orders.filter(o => o.status !== 'Entregado').length;
-            document.getElementById('st-done').innerText = db.orders.filter(o => o.status === 'Entregado').length;
-            document.getElementById('st-low').innerText = db.stock.filter(s => s.cant < 5).length;
+        // CARGAS ADMIN
+        function saveStock() {
+            db.stock.push({sku: document.getElementById('s-sku').value, nom: document.getElementById('s-nom').value, cant: parseInt(document.getElementById('s-cant').value)});
+            sync();
+        }
+        function saveClient() {
+            db.clients.push({name: document.getElementById('c-name').value});
+            sync();
         }
 
-        function filterT(v) {
-            const f = v.toLowerCase();
-            const rows = document.getElementById('tbody-orders').rows;
-            for(let r of rows) { r.style.display = r.innerText.toLowerCase().includes(f) ? "" : "none"; }
+        // RENDERS
+        function render() {
+            document.getElementById('tbody-users').innerHTML = db.users.map((u, i) => `<tr><td>${u.name}</td><td>${u.role}</td><td><button onclick="deleteUser(${i})">Eliminar</button></td></tr>`).join('');
+            document.getElementById('tbody-stock').innerHTML = db.stock.map(s => `<tr><td>${s.sku}</td><td>${s.nom}</td><td>${s.cant}</td></tr>`).join('');
+            document.getElementById('tbody-clients').innerHTML = db.clients.map(c => `<tr><td>${c.name}</td></tr>`).join('');
+            document.getElementById('p-client').innerHTML = db.clients.map(c => `<option>${c.name}</option>`).join('');
+            document.getElementById('p-sku-select').innerHTML = db.stock.map(s => `<option value="${s.sku}">${s.nom}</option>`).join('');
+            document.getElementById('tbody-orders').innerHTML = db.orders.map((o, i) => `<tr><td>${o.id}</td><td>${o.client}</td><td>${o.status}</td><td><button onclick="openRemito(${i})">Ver Remito</button></td></tr>`).join('');
+            
+            document.getElementById('st-total').innerText = db.orders.length;
+            document.getElementById('st-pend').innerText = db.orders.filter(x => x.status === "Pendiente").length;
+            document.getElementById('st-low').innerText = db.stock.filter(x => x.cant < 5).length;
         }
 
         render();
